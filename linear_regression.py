@@ -13,7 +13,7 @@ y = tf.placeholder(dtype=tf.float32,shape=[None,1],name="training_label")
 #训练参数
 weight = tf.get_variable(shape=[1,1],name="weight")
 bias = tf.get_variable(shape=[1],name="bias")
-prediction_y = )tf.matmul(x,weight + bias
+prediction_y = tf.matmul(x,weight) + bias
 
 #训练方法
 loss = tf.losses.mean_squared_error(labels = y,predictions = prediction_y)
@@ -22,6 +22,7 @@ target = optimizer.minimize(loss)
 
 
 with tf.Session() as sess:
+    
     sess.run(tf.global_variables_initializer())
 
     dataset = {}
@@ -60,23 +61,23 @@ with tf.Session() as sess:
 
     #     print("epoch:",i,"mean_square_loss:",losss,weights,biass)
 
-    fig = plt.figure()
-    ax = Axes3D(fig)
-    X = np.arange(-10, 10, 0.1)
-    Y = np.arange(-10, 10, 0.1)
-    X, Y = np.meshgrid(X, Y)
+    # fig = plt.figure()
+    # ax = Axes3D(fig)
+    # X = np.arange(-10, 10, 0.1)
+    # Y = np.arange(-10, 10, 0.1)
+    # X, Y = np.meshgrid(X, Y)
 
-    losss = []
-    for i in range(len(X)):
-        for j in range(len(Y)):
-            w = np.reshape(X[i][i],(1,1))
-            b = np.reshape(Y[j][j],(1))
-            losss.append(sess.run(loss,feed_dict={x:dataset["training_data"][low:high],y:dataset["training_label"][low:high],weight:w,bias:b}))
-    losss = np.reshape(losss,(200,200))
-    ax.plot_surface(X, Y, losss, rstride=1, cstride=1, cmap='rainbow')
+    # losss = []
+    # for i in range(len(X)):
+    #     for j in range(len(Y)):
+    #         w = np.reshape(X[i][i],(1,1))
+    #         b = np.reshape(Y[j][j],(1))
+    #         losss.append(sess.run(loss,feed_dict={x:dataset["training_data"][low:high],y:dataset["training_label"][low:high],weight:w,bias:b}))
+    # losss = np.reshape(losss,(200,200))
+    # ax.plot_surface(X, Y, losss, rstride=1, cstride=1, cmap='rainbow')
 
-    # x = np.linspace(-10, 500, 100)
-    # y = weights[0]*x+biass[0]
-    # plt.plot(x,y)
+    x = np.linspace(-10, 500, 100)
+    y = weights[0]*x+biass[0]
+    plt.plot(x,y)
 
     plt.show()
